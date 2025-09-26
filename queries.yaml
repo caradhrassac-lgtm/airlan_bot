@@ -1,0 +1,13 @@
+per_query: 10
+queries:
+  - "HVAC agua helada licitación site:*.pe"
+  - "planta de agua helada licitación site:*.pe"
+  - "chiller licitación site:seace.gob.pe"
+  - "agua helada convocatoria SEACE"
+  - "HVAC planta agua helada concurso público Perú"
+  - "planta de agua helada licitación"
+  - "HVAC agua helada concurso público"
+  - "planta enfriamiento agua helada licitación"
+  - "chilled water plant tender"
+  - "HVAC chilled water RFP"
+  - "water-cooled chiller tender"
