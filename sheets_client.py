@@ -1,3 +1,4 @@
+# sheets_client.py
 import os, json
 import gspread
 from google.oauth2.service_account import Credentials
@@ -16,11 +17,20 @@ class SheetClient:
         info = json.loads(svc_json)
         creds = Credentials.from_service_account_info(info, scopes=SCOPES)
         self.gc = gspread.authorize(creds)
-        self.sheet_name = sheet_name
-        try:
-            self.sh = self.gc.open(sheet_name)
-        except gspread.SpreadsheetNotFound:
-            self.sh = self.gc.create(sheet_name)
+
+        sheet_id = os.getenv("GSPREAD_SHEET_ID")  # <- NUEVO
+        if sheet_id:
+            self.sh = self.gc.open_by_key(sheet_id)     # abre por ID (no crea)
+        else:
+            try:
+                self.sh = self.gc.open(sheet_name)      # abre por nombre
+            except gspread.SpreadsheetNotFound:
+                sa = info.get("client_email", "<service-account>")
+                raise RuntimeError(
+                    f"No se encontró la hoja '{sheet_name}'. "
+                    f"Créala en tu Drive y compártela con {sa} como Editor, "
+                    f"o define GSPREAD_SHEET_ID con el ID de la hoja."
+                )
         self.ws = self.sh.sheet1
 
     def ensure_header(self, headers: List[str]):
