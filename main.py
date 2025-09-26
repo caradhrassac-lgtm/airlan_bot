@@ -4,7 +4,7 @@ from utils import relevance_score, now_iso, normalize_url, domain_of
 from google_search import google_search
 from sheets_client import SheetClient
 
-SHEET_NAME = os.getenv("GSPREAD_SHEET_NAME", "HVAC_ChilledWater_Feed")
+SHEET_NAME = os.getenv("GSPREAD_SHEET_NAME", "HVAC_Projects")
 
 def run_once() -> Dict[str, int]:
     import yaml
